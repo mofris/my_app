@@ -15,7 +15,7 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget inputUsername() {
     return Container(
-      margin: const EdgeInsets.only(top: 80, left: 10, right: 10),
+      margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -114,8 +114,9 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          child: ListView(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               inputUsername(),
               inputPassword(),
