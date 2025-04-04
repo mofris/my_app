@@ -13,6 +13,18 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController usernameController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
 
+  Widget illustration() {
+    return Container(
+      margin: const EdgeInsets.only(top: 70),
+      child: Center(
+        child: Image.asset(
+          'assets/logo/logo.png',
+          width: 280,
+        ),
+      ),
+    );
+  }
+
   Widget inputUsername() {
     return Container(
       margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
@@ -31,7 +43,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Colors.grey,
+              color: Colors.orange[300],
             ),
             child: Center(
               child: TextFormField(
@@ -66,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Colors.grey,
+              color: Colors.orange[300],
             ),
             child: Center(
               child: TextFormField(
@@ -98,13 +110,14 @@ class _SignInPageState extends State<SignInPage> {
           );
         },
         style: TextButton.styleFrom(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.deepOrange[400],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
           ),
         ),
         child: const Text(
           'Sign In',
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -115,9 +128,9 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: ListView(
             children: [
+              illustration(),
               inputUsername(),
               inputPassword(),
               signInButton(),
