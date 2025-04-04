@@ -1,3 +1,6 @@
+import 'package:my_app/providers/auth_provider.dart';
+import 'package:my_app/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/pages/home_page.dart';
 import 'package:my_app/pages/sign_in_page.dart';
@@ -11,12 +14,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => const SignInPage(),
-        '/home': (context) => const HomePage(),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthProvider>(
+          create: (context) => AuthProvider(),
+        ),
+        ChangeNotifierProvider<UserProvider>(
+          create: (context) => UserProvider(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/': (context) => const SignInPage(),
+          '/home': (context) => const HomePage(),
+        },
+      ),
     );
   }
 }
