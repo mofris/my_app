@@ -1,4 +1,5 @@
 import 'package:my_app/providers/auth_provider.dart';
+import 'package:my_app/providers/contact_provider.dart';
 import 'package:my_app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<UserProvider>(
           create: (context) => UserProvider(),
-        )
+        ),
+        ChangeNotifierProvider<ContactProvider>(
+          create: (context) => ContactProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

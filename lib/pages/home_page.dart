@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/models/contact_model.dart';
+import 'package:my_app/providers/contact_provider.dart';
 import 'package:my_app/providers/user_provider.dart';
 import 'package:my_app/widgets/contact_tile.dart';
 import 'package:provider/provider.dart';
@@ -9,14 +11,15 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context);
+    var contactProvider = Provider.of<ContactProvider>(context);
 
     Widget header() {
       return Container(
         decoration: const BoxDecoration(
-          color: Colors.deepOrangeAccent, // Ubah warna sesuai kebutuhan
+          color: Colors.deepOrangeAccent,
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(10), // Hanya sudut bawah kiri
-            bottomRight: Radius.circular(10), // Hanya sudut bawah kanan
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
           ),
           boxShadow: [
             BoxShadow(
@@ -26,11 +29,9 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-        padding: const EdgeInsets.only(
-          top: 10,
-          left: 15,
-          right: 15,
-          bottom: 10,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 10,
         ),
         child: const Column(
           children: [
@@ -73,27 +74,45 @@ class HomePage extends StatelessWidget {
     }
 
     Widget contact() {
-      return Container(
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-          top: 30,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'All Your Contact',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            ContactTile(
-              name: 'Mochammad Faris',
-              number: '081232139955',
-            ),
-          ],
+      return Expanded(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: FutureBuilder<List<ContactModel>>(
+            future: contactProvider.getContacts(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final contacts = snapshot.data ?? [];
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'All Your Contact',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 16),
+                  if (contacts.isEmpty)
+                    const Center(
+                      child: Text(
+                        'Tidak ada data',
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
+                    )
+                  else
+                    ...contacts.map((contact) {
+                      return ContactTile(
+                        id: contact.id ?? 0,
+                        name: contact.name ?? '-',
+                        number: contact.number ?? '-',
+                      );
+                    }).toList(),
+                ],
+              );
+            },
+          ),
         ),
       );
     }
@@ -106,8 +125,10 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        tooltip: 'Increment',
+        onPressed: () {
+          // Tambahkan aksi saat tombol tambah ditekan
+        },
+        tooltip: 'Tambah Kontak',
         child: const Icon(Icons.add),
       ),
     );
