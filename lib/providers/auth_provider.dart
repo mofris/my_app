@@ -13,7 +13,8 @@ class AuthProvider with ChangeNotifier {
       });
 
       var response = await http.post(
-        Uri.parse('http://10.9.193.38/api/login'),
+        // Uri.parse('http://10.9.193.38/api/login'),
+        Uri.parse('http://192.168.8.108/api/login'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -21,8 +22,8 @@ class AuthProvider with ChangeNotifier {
         body: body,
       );
 
-      print('Status Code: ${response.statusCode}');
-      print('Response Body: ${response.body}');
+      // print('Status Code: ${response.statusCode}');
+      // print('Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
