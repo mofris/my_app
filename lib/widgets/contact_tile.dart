@@ -12,44 +12,47 @@ class ContactTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {},
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      onTap: () {
+        print('object');
+      },
+      child: Column(
         children: [
-          Image.asset(
-            'assets/logo/logo.png',
-            width: 44,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                'assets/img/avatar.png',
+                width: 44,
+              ),
+              const SizedBox(width: 24),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      number,
+                      style: const TextStyle(color: Colors.amber),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: () => {
+                  // Aksi hapus
+                  print('Delete pressed')
+                },
+                icon: const Icon(Icons.delete, color: Colors.red),
+              ),
+            ],
           ),
-          const SizedBox(
-            width: 24,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(color: Colors.grey),
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                Text(
-                  number,
-                  style: TextStyle(color: Colors.amber),
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                Divider(
-                  thickness: 1,
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-              ],
-            ),
-          ),
+          const SizedBox(height: 18),
+          const Divider(thickness: 1),
+          const SizedBox(height: 10),
         ],
       ),
     );
