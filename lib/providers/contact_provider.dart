@@ -44,6 +44,62 @@ class ContactProvider with ChangeNotifier {
     }
   }
 
+  Future<bool> addContact(String name, String number) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://192.168.8.108/api/contact/created'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: jsonEncode({
+          'name': name,
+          'number': number,
+        }),
+      );
+
+      // print('Response add: ${response.body}');
+
+      if (response.statusCode == 201) {
+        notifyListeners(); // agar UI bisa refresh jika perlu
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Error: $e');
+      return false;
+    }
+  }
+
+  Future<bool> updateContact(int id, String name, String number) async {
+    try {
+      final response = await http.put(
+        Uri.parse('http://192.168.8.108/api/contact/update/$id'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: jsonEncode({
+          'name': name,
+          'number': number,
+        }),
+      );
+
+      print('Response update: ${response.body}');
+
+      if (response.statusCode == 200) {
+        notifyListeners();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Error: $e');
+      return false;
+    }
+  }
+
   Future<bool> deleteContact(int id) async {
     try {
       var response = await http.delete(
@@ -54,8 +110,8 @@ class ContactProvider with ChangeNotifier {
         },
       );
 
-      print('Status Code (DELETE): ${response.statusCode}');
-      print('Response Body: ${response.body}');
+      // print('Status Code (DELETE): ${response.statusCode}');
+      // print('Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         notifyListeners(); // agar UI bisa refresh jika perlu

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/models/contact_model.dart';
 import 'package:my_app/providers/contact_provider.dart';
 import 'package:my_app/providers/user_provider.dart';
+import 'package:my_app/widgets/add_contact.dart';
 import 'package:my_app/widgets/contact_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -126,7 +127,12 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Tambahkan aksi saat tombol tambah ditekan
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AddContact();
+            },
+          );
         },
         tooltip: 'Tambah Kontak',
         child: const Icon(Icons.add),

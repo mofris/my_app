@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/providers/contact_provider.dart';
+import 'package:my_app/widgets/update_contact.dart';
 import 'package:provider/provider.dart';
 
 class ContactTile extends StatelessWidget {
@@ -35,7 +36,14 @@ class ContactTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        print('object');
+        showDialog(
+          context: context,
+          builder: (_) => UpdateContactDialog(
+            id: id,
+            name: name,
+            number: number,
+          ),
+        );
       },
       child: Column(
         children: [
