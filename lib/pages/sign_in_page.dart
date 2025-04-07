@@ -5,6 +5,7 @@ import 'package:my_app/models/user_models.dart';
 import 'package:my_app/providers/auth_provider.dart';
 import 'package:my_app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -23,6 +24,14 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     var authProvider = Provider.of<AuthProvider>(context);
     var userProvider = Provider.of<UserProvider>(context);
+
+    // Set status bar transparan dan icon putih
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
 
     void showError(String message) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -170,16 +179,19 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
 
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: ListView(
-            children: [
-              illustration(),
-              inputUsername(),
-              inputPassword(),
-              signInButton(),
-            ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: ListView(
+              children: [
+                illustration(),
+                inputUsername(),
+                inputPassword(),
+                signInButton(),
+              ],
+            ),
           ),
         ),
       ),
