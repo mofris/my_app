@@ -10,7 +10,8 @@ class ContactProvider with ChangeNotifier {
     try {
       var response = await http.get(
         // Uri.parse('http://10.9.193.38/api/contact'),
-        Uri.parse('http://192.168.8.108/api/contact'),
+        // Uri.parse('http://192.168.8.108/api/contact'),
+        Uri.parse('https://my-app.daisysunday.site/api/contact'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -47,7 +48,8 @@ class ContactProvider with ChangeNotifier {
   Future<bool> addContact(String name, String number) async {
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.8.108/api/contact/created'),
+        // Uri.parse('http://192.168.8.108/api/contact/created'),
+        Uri.parse('https://my-app.daisysunday.site/api/contact/created'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -75,7 +77,7 @@ class ContactProvider with ChangeNotifier {
   Future<bool> updateContact(int id, String name, String number) async {
     try {
       final response = await http.put(
-        Uri.parse('http://192.168.8.108/api/contact/update/$id'),
+        Uri.parse('https://my-app.daisysunday.site/api/contact/update/$id'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -103,7 +105,7 @@ class ContactProvider with ChangeNotifier {
   Future<bool> deleteContact(int id) async {
     try {
       var response = await http.delete(
-        Uri.parse('http://192.168.8.108/api/contact/$id'),
+        Uri.parse('https://my-app.daisysunday.site/api/contact/$id'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

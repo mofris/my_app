@@ -14,7 +14,8 @@ class AuthProvider with ChangeNotifier {
 
       var response = await http.post(
         // Uri.parse('http://10.9.193.38/api/login'),
-        Uri.parse('http://192.168.8.108/api/login'),
+        // Uri.parse('http://192.168.8.108/api/login'),
+        Uri.parse('https://my-app.daisysunday.site/api/login'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
